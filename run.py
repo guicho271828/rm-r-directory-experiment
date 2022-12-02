@@ -22,7 +22,8 @@ parser.add_argument("--leaf","-l",
                     type=int,
                     default=10,
                     help="number of files in the leaf directory")
-parser.add_argument("commands", nargs="*")
+parser.add_argument("command",
+                    help="command string (quote it properly). use ARG to specify the directory to remove.")
 
 args = parser.parse_args()
 
@@ -41,12 +42,12 @@ def create(directory,level,root=False):
 
 def main():
     with tempfile.TemporaryDirectory(dir=".") as d:
-        print(f"creating test directory below {d}")
+        print(f"creating {(args.width**args.depth) * args.leaf} files and {(args.width**args.depth)} directories below {d}")
         t1 = time.time()
         create(d, args.depth, True)
         t2 = time.time()
         print(f"Done! [{t2-t1:.2f} sec]")
-        commands = ["/usr/bin/time", "-p", *args.commands, d]
+        commands = ["/usr/bin/time", "-p", "sh", "-c", args.command.replace("ARG",d)]
         print("running:"," ".join(commands))
         subprocess.run(commands)
 
