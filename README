@@ -1,0 +1,6 @@
+
+
+This is a repository testing and comparing the speed of various methods for deleting a large number of files in a directory.
+
+The speed depends on the hardware and the filesystem.
+
