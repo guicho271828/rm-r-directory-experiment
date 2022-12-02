@@ -42,8 +42,9 @@ def create(directory,level,root=False):
 def main():
     with tempfile.TemporaryDirectory(dir=".") as d:
         create(d, args.depth, True)
-        print("running:"," ".join(args.commands))
-        subprocess.run(["/usr/bin/time", "-p", *args.commands])
+        commands = ["/usr/bin/time", "-p", *args.commands, d]
+        print("running:"," ".join(commands))
+        subprocess.run(commands)
 
 if __name__ == "__main__":
     main()
