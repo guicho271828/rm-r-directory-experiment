@@ -10,15 +10,15 @@ parser = argparse.ArgumentParser()
 
 # common options
 
-parser.add_argument("--depth","-d",
+parser.add_argument("-d","--depth",
                     type=int,
                     default=3,
                     help="depth of the directory hierarchy created for testing")
-parser.add_argument("--width","-w",
+parser.add_argument("-w","--width",
                     type=int,
                     default=3,
                     help="number of subdirectories in each directory")
-parser.add_argument("--leaf","-l",
+parser.add_argument("-l","--leaf",
                     type=int,
                     default=10,
                     help="number of files in the leaf directory")
