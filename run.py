@@ -29,18 +29,19 @@ args = parser.parse_args()
 
 
 
-def create(directory,level):
-    os.mkdir(directory)
+def create(directory,level,root=False):
+    if not root:
+        os.mkdir(directory)
     if level==0:
         for i in range(args.leaf):
             open(os.path.join(directory,str(i)),"a").close()
     else:
         for i in range(args.width):
-            rec(os.path.join(directory,str(i)), level-1)
+            create(os.path.join(directory,str(i)), level-1)
 
 def main():
     with tempfile.TemporaryDirectory(dir=".") as d:
-        create(d, args.depth)
+        create(d, args.depth, True)
         print("running:"," ".join(args.commands))
         subprocess.run(["/usr/bin/time", "-p", *args.commands])
 
